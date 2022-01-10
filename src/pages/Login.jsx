@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor(props) {
@@ -39,38 +40,51 @@ class Login extends React.Component {
 
   render() {
     const { email, password, isEmailValid, isPasswordValid } = this.state;
-    const ifEmailPasswordIsInvalid = (!isEmailValid || !isPasswordValid);
+    const ifEmailOrPasswordInvalid = (!isEmailValid || !isPasswordValid);
+    const { history } = this.props;
 
     return (
       <main>
-        <label htmlFor="input-email">
-          Email:
-          <input
-            type="email"
-            name="email"
-            id="input-email"
-            onChange={ this.handleChange }
-            value={ email }
-            data-testid="email-input"
-          />
-        </label>
+        <form>
+          <label htmlFor="input-email">
+            Email:
+            <input
+              type="email"
+              name="email"
+              id="input-email"
+              onChange={ this.handleChange }
+              value={ email }
+              data-testid="email-input"
+            />
+          </label>
 
-        <label htmlFor="input-password">
-          Senha:
-          <input
-            type="password"
-            name="password"
-            id="input-password"
-            onChange={ this.handleChange }
-            value={ password }
-            data-testid="password-input"
-          />
-        </label>
+          <label htmlFor="input-password">
+            Senha:
+            <input
+              type="password"
+              name="password"
+              id="input-password"
+              onChange={ this.handleChange }
+              value={ password }
+              data-testid="password-input"
+            />
+          </label>
 
-        <button type="submit" disabled={ ifEmailPasswordIsInvalid }>Entrar</button>
+          <button
+            type="button"
+            disabled={ ifEmailOrPasswordInvalid }
+            onClick={ () => history.push('/carteira') }
+          >
+            Entrar
+          </button>
+        </form>
       </main>
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.func.isRequired,
+};
 
 export default Login;
