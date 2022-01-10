@@ -38,7 +38,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, isEmailValid, isPasswordValid } = this.state;
+    const ifEmailPasswordIsInvalid = (!isEmailValid || !isPasswordValid);
 
     return (
       <main>
@@ -66,7 +67,7 @@ class Login extends React.Component {
           />
         </label>
 
-        <button type="submit">Entrar</button>
+        <button type="submit" disabled={ ifEmailPasswordIsInvalid }>Entrar</button>
       </main>
     );
   }
