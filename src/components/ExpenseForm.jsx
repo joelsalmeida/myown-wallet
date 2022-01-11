@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchCurrencies } from '../actions';
 
 class ExpenseForm extends Component {
+  componentDidMount() {
+    const { setCurrencies } = this.props;
+    setCurrencies();
+  }
+
   render() {
     return (
       <form>
@@ -53,4 +61,11 @@ class ExpenseForm extends Component {
   }
 }
 
-export default ExpenseForm;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrencies: () => dispatch(fetchCurrencies()) });
+
+ExpenseForm.propTypes = {
+  setCurrencies: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(ExpenseForm);
