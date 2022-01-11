@@ -24,7 +24,7 @@ class Login extends React.Component {
       this.setState({ isPasswordValid: false });
     }
 
-    const validEmail = 'alguem@alguem.com';
+    const validEmail = 'alguem@email.com';
 
     if (email === validEmail) {
       this.setState({ isEmailValid: true });
