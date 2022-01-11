@@ -10,6 +10,7 @@ class ExpenseForm extends Component {
   }
 
   render() {
+    const { currencies } = this.props;
     return (
       <form>
         <label htmlFor="value-input">
@@ -30,9 +31,15 @@ class ExpenseForm extends Component {
         <label htmlFor="currency-input">
           Moeda:
           <select name="" id="currency-input" data-testid="currency-input">
-            <option value="usd">USD</option>
-            <option value="cad">CAD</option>
-            <option value="eur">EUR</option>
+            {currencies.map((currency, index) => (
+              <option
+                value={ currency }
+                key={ index }
+                data-testid={ currency }
+              >
+                {currency}
+              </option>
+            ))}
           </select>
         </label>
 
@@ -64,8 +71,12 @@ class ExpenseForm extends Component {
 const mapDispatchToProps = (dispatch) => ({
   setCurrencies: () => dispatch(fetchCurrencies()) });
 
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies });
+
 ExpenseForm.propTypes = {
   setCurrencies: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(ExpenseForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
