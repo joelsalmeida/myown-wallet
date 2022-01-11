@@ -10,9 +10,7 @@ function userReducer(state = INITIAL_STATE, action) {
   case LOGIN:
     return {
       ...state,
-
       email: action.email,
-
     };
   default:
     return state;

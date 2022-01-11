@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginAction } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -38,10 +40,17 @@ class Login extends React.Component {
       () => this.checkEmailAndPassword());
   }
 
+  submit = () => {
+    const { login, history } = this.props;
+    const { email } = this.state;
+
+    login(email);
+    history.push('/carteira');
+  }
+
   render() {
-    const { email, password, isEmailValid, isPasswordValid } = this.state;
+    const { isEmailValid, isPasswordValid } = this.state;
     const ifEmailOrPasswordInvalid = (!isEmailValid || !isPasswordValid);
-    const { history } = this.props;
 
     return (
       <main>
@@ -53,7 +62,6 @@ class Login extends React.Component {
               name="email"
               id="input-email"
               onChange={ this.handleChange }
-              value={ email }
               data-testid="email-input"
             />
           </label>
@@ -65,7 +73,6 @@ class Login extends React.Component {
               name="password"
               id="input-password"
               onChange={ this.handleChange }
-              value={ password }
               data-testid="password-input"
             />
           </label>
@@ -73,7 +80,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ ifEmailOrPasswordInvalid }
-            onClick={ () => history.push('/carteira') }
+            onClick={ this.submit }
           >
             Entrar
           </button>
@@ -83,8 +90,12 @@ class Login extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  login: (email) => dispatch(loginAction(email)) });
+
 Login.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
+  login: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
