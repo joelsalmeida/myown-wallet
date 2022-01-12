@@ -19,3 +19,16 @@ export const fetchCurrencies = () => (dispatch) => {
     console.error(error);
   }
 };
+
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const addExpenseAction = (expense) => ({ type: ADD_EXPENSE, expense });
+
+export const getCurrencyAddExpense = (expense) => (dispatch) => {
+  try {
+    fetch(END_POINT)
+      .then((response) => response.json())
+      .then((data) => dispatch(addExpenseAction({ ...expense, exchangeRates: data })));
+  } catch (error) {
+    console.error(error);
+  }
+};
