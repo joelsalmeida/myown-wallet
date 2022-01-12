@@ -31,11 +31,12 @@ class ExpenseForm extends Component {
     const { addExpense } = this.props;
 
     addExpense(this.state);
-    this.setState((prevState) => ({ id: prevState.id + 1 }));
+    this.setState((prevState) => ({ id: prevState.id + 1, value: '', description: '' }));
   }
 
   render() {
     const { currencies } = this.props;
+    const { value, description } = this.state;
     return (
       <form>
         <label htmlFor="value-input">
@@ -45,6 +46,7 @@ class ExpenseForm extends Component {
             name="value"
             id="value-input"
             onChange={ this.handleChange }
+            value={ value }
             data-testid="value-input"
           />
         </label>
@@ -56,6 +58,7 @@ class ExpenseForm extends Component {
             name="description"
             id="description-input"
             onChange={ this.handleChange }
+            value={ description }
             data-testid="description-input"
           />
         </label>

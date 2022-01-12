@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
-    const { email } = this.props;
+    const { email, expenses } = this.props;
+
+    const expenseTotal = expenses.map((expense) => {
+      const { currency, value } = expense;
+      const expenseValue = expense.exchangeRates[currency].ask * value;
+      return Number(expenseValue);
+    }).reduce((acc, curr) => acc + curr, 0);
+
     return (
       <header>
         <div>
@@ -14,7 +21,9 @@ class Header extends React.Component {
 
         <div>
           <span>Despesa total:</span>
-          <span data-testid="total-field"> 0 </span>
+          <span data-testid="total-field">
+            {expenseTotal}
+          </span>
         </div>
 
         <div>
@@ -28,9 +37,12 @@ class Header extends React.Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  email: state.user.email });
+  email: state.user.email,
+  expenses: state.wallet.expenses,
+});
 
 export default connect(mapStateToProps)(Header);
