@@ -45,6 +45,14 @@ class ExpenseTable extends Component {
                 <td>
                   <button
                     type="button"
+                    data-testid="edit-btn"
+                    name={ id }
+                  >
+                    Editar despesa
+                  </button>
+
+                  <button
+                    type="button"
                     onClick={ () => delExpense(id) }
                     data-testid="delete-btn"
                   >
