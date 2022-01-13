@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { removeExpense } from '../actions';
 
 class ExpenseTable extends Component {
   render() {
-    const { expenses } = this.props;
+    const { expenses, delExpense } = this.props;
     const roundNumber = (value) => Number(value).toFixed(2);
 
     return (
@@ -25,22 +26,31 @@ class ExpenseTable extends Component {
 
         <tbody>
 
-          {expenses.map((expense, index) => {
-            const { currency, value } = expense;
+          {expenses.map((expense) => {
+            const { currency, value, id } = expense;
             const expenseValue = expense.exchangeRates[currency].ask * value;
             const currencyName = expense.exchangeRates[currency].name;
             const exchangeValue = expense.exchangeRates[currency].ask;
 
             return (
-              <tr key={ index }>
-                <td key={ 1 }>{expense.description}</td>
-                <td key={ 2 }>{expense.tag}</td>
-                <td key={ 3 }>{expense.method}</td>
-                <td key={ 4 }>{expense.value}</td>
-                <td key={ 5 }>{currencyName}</td>
-                <td key={ 6 }>{roundNumber(exchangeValue)}</td>
-                <td key={ 7 }>{roundNumber(expenseValue)}</td>
-                <td key={ 10 }>Real</td>
+              <tr key={ id }>
+                <td>{expense.description}</td>
+                <td>{expense.tag}</td>
+                <td>{expense.method}</td>
+                <td>{expense.value}</td>
+                <td>{currencyName}</td>
+                <td>{roundNumber(exchangeValue)}</td>
+                <td>{roundNumber(expenseValue)}</td>
+                <td>Real</td>
+                <td>
+                  <button
+                    type="button"
+                    onClick={ () => delExpense(id) }
+                    data-testid="delete-btn"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>);
           })}
 
@@ -52,10 +62,15 @@ class ExpenseTable extends Component {
 
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  delExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(ExpenseTable);
+const mapDispatchToProps = (dispatch) => ({
+  delExpense: (expenseId) => dispatch(removeExpense(expenseId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

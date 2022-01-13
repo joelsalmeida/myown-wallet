@@ -32,3 +32,6 @@ export const getCurrencyAddExpense = (expense) => (dispatch) => {
     console.error(error);
   }
 };
+
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+export const removeExpense = (expenseId) => ({ type: REMOVE_EXPENSE, expenseId });
