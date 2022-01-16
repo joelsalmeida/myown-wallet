@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies, getCurrencyAddExpense } from '../actions';
+import { editExpense, fetchCurrencies, getCurrencyAddExpense } from '../actions';
 
 class ExpenseForm extends Component {
   constructor() {
@@ -35,8 +35,9 @@ class ExpenseForm extends Component {
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, editIsActive, edit } = this.props;
     const { value, description } = this.state;
+    const buttonValue = editIsActive ? 'Editar despesa' : 'Adicionar despesa';
     return (
       <form>
         <label htmlFor="value-input">
@@ -113,7 +114,12 @@ class ExpenseForm extends Component {
           </select>
         </label>
 
-        <button type="button" onClick={ this.addExpense }>Adicionar despesa</button>
+        <button
+          type="button"
+          onClick={ editIsActive ? () => edit(this.state) : this.addExpense }
+        >
+          {buttonValue}
+        </button>
       </form>
     );
   }
@@ -122,15 +128,25 @@ class ExpenseForm extends Component {
 const mapDispatchToProps = (dispatch) => ({
   setCurrencies: () => dispatch(fetchCurrencies()),
   addExpense: (expense) => dispatch(getCurrencyAddExpense(expense)),
+  edit: (newExpense) => dispatch(editExpense(newExpense)),
 });
 
 const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies });
+  currencies: state.wallet.currencies,
+  editIsActive: state.wallet.editIsActive,
+  indexToEdit: state.wallet.indexToEdit,
+});
 
 ExpenseForm.propTypes = {
   setCurrencies: PropTypes.func.isRequired,
   addExpense: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  editIsActive: PropTypes.bool,
+  edit: PropTypes.func.isRequired,
+};
+
+ExpenseForm.defaultProps = {
+  editIsActive: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);

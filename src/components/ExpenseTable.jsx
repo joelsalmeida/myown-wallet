@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeExpense } from '../actions';
+import { enableExpenseEditing, removeExpense } from '../actions';
 
 class ExpenseTable extends Component {
   render() {
-    const { expenses, delExpense } = this.props;
+    const { expenses, delExpense, enableEdit } = this.props;
     const roundNumber = (value) => Number(value).toFixed(2);
+
+    const getIndexOfExpense = (expenseId) => {
+      const target = (expenses.find((expenseWith) => expenseWith.id === expenseId));
+      return ({ id: expenses.indexOf(target), exchange: target.exchangeRates });
+    };
 
     return (
       <table>
@@ -47,8 +52,9 @@ class ExpenseTable extends Component {
                     type="button"
                     data-testid="edit-btn"
                     name={ id }
+                    onClick={ () => enableEdit(getIndexOfExpense(id)) }
                   >
-                    Editar despesa
+                    Editar
                   </button>
 
                   <button
@@ -71,6 +77,7 @@ class ExpenseTable extends Component {
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   delExpense: PropTypes.func.isRequired,
+  enableEdit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -79,6 +86,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   delExpense: (expenseId) => dispatch(removeExpense(expenseId)),
+  enableEdit: (expenseId) => dispatch(enableExpenseEditing(expenseId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);
