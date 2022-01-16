@@ -35,3 +35,10 @@ export const getCurrencyAddExpense = (expense) => (dispatch) => {
 
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 export const removeExpense = (expenseId) => ({ type: REMOVE_EXPENSE, expenseId });
+
+export const ENABLE_EXPENSE_EDITING = 'ENABLE_EXPENSE_EDITING';
+export const enableExpenseEditing = (expenseId) => ({
+  type: ENABLE_EXPENSE_EDITING, expenseId });
+
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const editExpense = (newExpense) => ({ type: EDIT_EXPENSE, newExpense });
