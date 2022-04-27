@@ -1,0 +1,30 @@
+table {
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+thead {
+  background-color: var(--accent);
+  color: white;
+  margin-bottom: 1em;
+}
+
+th {
+  padding: 0.5em 1em;
+  border-radius: 5px;
+}
+
+tr:nth-child(even) {
+  background-color: hsl(0, 0%, 90%);
+}
+
+tr:hover {
+  background-color: var(--accent-light);
+}
+
+.table-button {
+  margin: 0.25em 0;
+}

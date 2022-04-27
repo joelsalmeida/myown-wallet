@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { enableExpenseEditing, removeExpense } from '../actions';
+import './ExpenseTable.css';
 
 class ExpenseTable extends Component {
   render() {
@@ -53,6 +54,7 @@ class ExpenseTable extends Component {
                     data-testid="edit-btn"
                     name={ id }
                     onClick={ () => enableEdit(getIndexOfExpense(id)) }
+                    className="table-button"
                   >
                     Editar
                   </button>
@@ -61,6 +63,7 @@ class ExpenseTable extends Component {
                     type="button"
                     onClick={ () => delExpense(id) }
                     data-testid="delete-btn"
+                    className="table-button"
                   >
                     Delete
                   </button>
