@@ -1,0 +1,14 @@
+.expense-form {
+  display: flex;
+  gap: 3em;
+}
+
+.expense {
+  max-width: 300px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
