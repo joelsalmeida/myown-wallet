@@ -1,0 +1,22 @@
+.login {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 255, 255);
+  padding: 5rem;
+  border-radius: 5px;
+}
+
+.login-form > label {
+  margin-bottom: 1em;
+}
+
+input {
+  width: 100%;
+  margin-top: 0.5em;
+}

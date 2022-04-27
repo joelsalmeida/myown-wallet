@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginAction } from '../actions';
+import './Login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -53,8 +54,10 @@ class Login extends React.Component {
     const ifEmailOrPasswordInvalid = (!isEmailValid || !isPasswordValid);
 
     return (
-      <main>
-        <form>
+      <main className="login">
+        <form className="login-form border-orange">
+          <h1>MyOwn Wallet</h1>
+
           <label htmlFor="input-email">
             Email:
             <input
