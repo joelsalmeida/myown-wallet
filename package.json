@@ -1,6 +1,7 @@
 {
   "name": "sd-0x-project-trybewallet",
   "version": "0.1.0",
+  "homepage": "https://joelsalmeida.github.io/myown-wallet/",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^8.11.1",
