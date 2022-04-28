@@ -17,28 +17,17 @@ class Login extends React.Component {
 
   checkEmailAndPassword = () => {
     const { email, password } = this.state;
+
     const minimumLength = 6;
+    const emailRegEx = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-    if (password.length >= minimumLength) {
-      this.setState({ isPasswordValid: true });
-    } else {
-      this.setState({ isPasswordValid: false });
-    }
-
-    const validEmail = 'alguem@email.com';
-
-    if (email === validEmail) {
-      this.setState({ isEmailValid: true });
-    } else {
-      this.setState({ isEmailValid: false });
-    }
+    this.setState({ isEmailValid: emailRegEx.test(email) });
+    this.setState({ isPasswordValid: password.length >= minimumLength });
   }
 
   handleChange = ({ target }) => {
     const { name, value } = target;
-
-    this.setState({ [name]: value },
-      () => this.checkEmailAndPassword());
+    this.setState({ [name]: value }, () => this.checkEmailAndPassword());
   }
 
   submit = () => {

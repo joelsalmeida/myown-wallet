@@ -39,6 +39,7 @@ class ExpenseForm extends Component {
     const { currencies, editIsActive, edit } = this.props;
     const { value, description } = this.state;
     const buttonValue = editIsActive ? 'Editar despesa' : 'Adicionar despesa';
+
     return (
       <form className="expense-form">
         <div className="expense">
